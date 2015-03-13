@@ -24,6 +24,17 @@ var NavView = Backbone.View.extend({
 });
 
 
+var InfoView = Backbone.View.extend({
+
+    template: JST["infoView"],
+
+    render: function() {
+        this.$el.html( this.template( this.model.toJSON() ));
+        return this;
+    }
+})
+
+
 var TrackView = Backbone.View.extend({
 
     template: JST["singleTrackView"],
