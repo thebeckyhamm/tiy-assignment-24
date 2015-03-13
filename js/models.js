@@ -41,3 +41,11 @@ var TrackCollection = Backbone.Collection.extend({
 
 });
 
+var FavoriteTrackCollection = Backbone.Firebase.Collection.extend({
+
+    model: Track,
+
+    url: "https://tiy-soundcloud.firebaseio.com/collections/favoriteTracks"
+
+});
+

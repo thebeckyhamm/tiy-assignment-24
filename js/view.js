@@ -29,7 +29,7 @@ var SearchBoxView = Backbone.View.extend({
     template: JST["searchBoxView"],
 
     render: function() {
-        this.$el.html( this.template( this.model.toJSON() ));
+        this.$el.html( this.template());
         return this;
     }
 
@@ -66,10 +66,19 @@ var TrackView = Backbone.View.extend({
 
     className: "track",
 
+    events: {
+        "click .track-play" : "onPlayTrack"
+    }
+
     render: function() {
         this.$el.html( this.template( this.model.toJSON() ));
 
         return this;
+    },
+
+    onPlayTrack: function(e) {
+        var id = $(e.currentTarget).data("id");
+        this.trigger("play:track", id);
     }
 
 });
@@ -93,6 +102,42 @@ var TrackListView = Backbone.View.extend({
 
         return this;
 
+    }
+
+});
+
+
+var FavoriteTrackListView = Backbone.View.extend({
+
+    template: JST["listView"],
+
+    className: "track-list-wrapper",
+
+    events: {
+
+        "click .track-star" : "addTrack"
+    }
+
+    render: function() {
+        this.$el.html( this.template() );
+
+        var $list = this.$(".track-list");
+
+        this.collection.each(function(track) {
+            var trackView = new TrackView({model: track});
+            $list.append( trackView.render().el );
+        }, this);
+
+        return this;
+
+    },
+
+    addTrack: function(favoriteTrack) {
+
+        var trackView = new TrackView({model: favoriteTrack});
+        this.$el.append(trackView.render().el);
+
+        return this;
     }
 
 });
