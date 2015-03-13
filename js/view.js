@@ -32,6 +32,7 @@ var TrackView = Backbone.View.extend({
 
     render: function() {
         this.$el.html( this.template( this.model.toJSON() ));
+
         return this;
     }
 
@@ -42,15 +43,17 @@ var TrackListView = Backbone.View.extend({
 
     template: JST["listView"],
 
+    className: "track-list-wrapper",
+
     render: function() {
         this.$el.html( this.template() );
 
-        var $list = this.$("track-list");
+        var $list = this.$(".track-list");
 
         this.collection.each(function(track) {
             var trackView = new TrackView({model: track});
             $list.append( trackView.render().el );
-        });
+        }, this);
 
         return this;
 

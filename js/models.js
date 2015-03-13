@@ -35,6 +35,7 @@ var TrackCollection = Backbone.Collection.extend({
     loadTracks: function(query) {
         SC.get('/tracks', { q: query }, function(data) {
             this.reset(data);
+            this.trigger("tracks:loaded");
         }.bind(this));
     }
 
