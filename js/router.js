@@ -8,7 +8,7 @@ var App = Backbone.Router.extend({
         this.favoriteTracks = new FavoriteTrackCollection();
 
         this.searchBoxView = new SearchBoxView();
-        this.infoView = new InfoView();
+        //this.infoView = new InfoView();
         this.currentTrackView = new CurrentTrackView();
 
         this.trackListView = new TrackListView({
@@ -41,8 +41,11 @@ var App = Backbone.Router.extend({
         });
 
         this.listenTo(this.trackListView, 'play:track', function(id) {
-            console.log(id);
             this.playTrack(id);
+        });
+
+        this.listenTo(this.trackListView, 'pause:track', function(id) {
+            this.pauseTrack(id);
         });
 
 
@@ -78,13 +81,20 @@ var App = Backbone.Router.extend({
 
     playTrack: function(id) {
         this.tracks.get(id).play();
+        console.log(this.tracks.get(id));
+        this.infoView = new InfoView({
+            model: this.tracks.get(id)
+        });
+        $("body").append( this.infoView.render().el);
+    },
+
+    pauseTrack: function(id) {
+        this.tracks.get(id).pause();
     },
 
     addFavorite: function(favoriteTrackID) {
         console.log(this.tracks.get(favoriteTrackID));        
         this.favoriteTracks.add(this.tracks.get(favoriteTrackID));
-
-
     },
 
     removeFavorite: function(favoriteTrackID) {

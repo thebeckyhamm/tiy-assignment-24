@@ -82,7 +82,7 @@ var TrackListView = Backbone.View.extend({
 
     events: {
 
-        "click .track-play" : "onPlayTrack",
+        "click .track-play" : "onPlayPause",
         "click .track-star" : "addRemoveFavorites"
     },
 
@@ -100,11 +100,23 @@ var TrackListView = Backbone.View.extend({
 
     },
 
-    onPlayTrack: function(e) {
-        var id = $(e.currentTarget).parent().data("id");
-        this.trigger("play:track", id);
+    onPlayPause: function(e) {
+        var $trackButton = $(e.currentTarget);
+
+        if ($trackButton.data("state") === "play") {
+            $trackButton.data("state", "pause");
+            $trackButton.html("&#10074;&#10074;");
+            var id = $(e.currentTarget).parent().data("id");
+            this.trigger("play:track", id);   
+        }
+        else {
+            $trackButton.data("state", "play");
+            $trackButton.html("&#9658;");
+            var id = $(e.currentTarget).parent().data("id");
+            this.trigger("pause:track", id);   
+        }
     },
-    
+
     addRemoveFavorites: function(e) {
         var $trackStar = $(e.currentTarget);
 

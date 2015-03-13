@@ -34,7 +34,10 @@ var TrackCollection = Backbone.Collection.extend({
 
     loadTracks: function(query) {
         SC.get('/tracks', { q: query }, function(data) {
-            this.reset(data);
+            var streamableData = _.filter(data, function(datum) {
+                return datum.streamable;
+            });
+            this.reset(streamableData);
             this.trigger("tracks:loaded");
         }.bind(this));
     }

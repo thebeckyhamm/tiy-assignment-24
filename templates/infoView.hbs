@@ -1,14 +1,27 @@
 <div class="info-view">
     <div class="artwork">
-        <img src="{{artwork_large}}" alt="{{title}}">
+        <img src="{{artwork_url}}" alt="{{title}}">
     </div>
     <ul>
-        <li>{{release_year}}</li>
-        <li>{{genre}}</li>
-        <li>{{label_name}}</li>
-        <li>{{tag_list}}</li>
-        <li><a href="{{download_url}}">Download</a></li>
-        <li>Favorites: {{favoritings_count}}</li>
+        {{#if release_year}}
+            <li>Released: {{release_year}}</li>
+        {{/if}}
+        {{#if genre}} 
+            <li>Genre: {{genre}}</li>
+        {{/if}}
+        {{#if label_name}} 
+            <li>Label: {{label_name}}</li>
+        {{/if}}  
+        {{#if tag_list}} 
+            <li>Tags: {{tag_list}}</li>
+        {{/if}}  
+        {{#if downloadable}} 
+            <li><a href="{{download_url}}">Download</a></li>
+        {{/if}}  
+        {{#if favoritings_count}} 
+            <li>Favorites: {{favoritings_count}}</li>
+        {{/if}}  
+
 
     </ul>
 </div>
