@@ -24,6 +24,31 @@ var NavView = Backbone.View.extend({
 });
 
 
+var SearchBoxView = Backbone.View.extend({
+
+    template: JST["searchBoxView"],
+
+    render: function() {
+        this.$el.html( this.template( this.model.toJSON() ));
+        return this;
+    }
+
+});
+
+
+var CurrentTrackView = Backbone.View.extend({
+
+    template: JST["currentTrackView"],
+
+    render: function() {
+
+        this.$el.html( this.template ( this.model.toJSON() ));
+        return this;
+    }
+
+});
+
+
 var InfoView = Backbone.View.extend({
 
     template: JST["infoView"],
