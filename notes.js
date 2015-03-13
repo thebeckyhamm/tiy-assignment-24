@@ -1,0 +1,3 @@
+-- bar across top with currently playing song
+-- artwork big on left
+-- song list on right, playing song highlighted

@@ -1,0 +1,25 @@
+{
+  "name": "tiy-assignment-24",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "underscore": "~1.8.2",
+    "gulp-declare": "~0.3.0",
+    "gulp": "~3.8.11",
+    "gulp-concat": "~2.5.2",
+    "gulp-handlebars": "~4.0.0",
+    "gulp-wrap": "~0.11.0",
+    "gulp-less": "~3.0.1",
+    "grunt": "~0.4.5",
+    "main-bower-files": "~2.6.1",
+    "browser-sync": "~2.2.3",
+    "gulp-plumber": "~1.0.0",
+    "gulp-notify": "~2.2.0"
+  }
+}
