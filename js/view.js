@@ -64,20 +64,12 @@ var TrackView = Backbone.View.extend({
 
     template: JST["singleTrackView"],
 
-    events: {
-        "click .track-play" : "onPlayTrack"
-    },
-
     render: function() {
         this.$el.html( this.template( this.model.toJSON() ));
 
         return this;
     },
 
-    onPlayTrack: function(e) {
-        var id = $(e.currentTarget).data("id");
-        this.trigger("play:track", id);
-    }
 
 });
 
@@ -90,6 +82,7 @@ var TrackListView = Backbone.View.extend({
 
     events: {
 
+        "click .track-play" : "onPlayTrack",
         "click .track-star" : "addRemoveFavorites"
     },
 
@@ -107,6 +100,11 @@ var TrackListView = Backbone.View.extend({
 
     },
 
+    onPlayTrack: function(e) {
+        var id = $(e.currentTarget).parent().data("id");
+        this.trigger("play:track", id);
+    },
+    
     addRemoveFavorites: function(e) {
         var $trackStar = $(e.currentTarget);
 

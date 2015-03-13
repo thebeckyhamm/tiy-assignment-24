@@ -40,6 +40,15 @@ var App = Backbone.Router.extend({
             this.removeFavorite(id);
         });
 
+        this.listenTo(this.trackListView, 'play:track', function(id) {
+            console.log(id);
+            this.playTrack(id);
+        });
+
+
+
+
+
         $("body").append( this.nav.render().el );
         $("body").append( this.searchBoxView.el );
         $("body").append( this.trackListView.el );
@@ -65,6 +74,10 @@ var App = Backbone.Router.extend({
             $("body").append( this.trackListView.render() );
         });
 
+    },
+
+    playTrack: function(id) {
+        this.tracks.get(id).play();
     },
 
     addFavorite: function(favoriteTrackID) {

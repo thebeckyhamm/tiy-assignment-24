@@ -5,3 +5,7 @@ body {
   cursor: pointer;
   display: inline-block;
 }
+.track-play {
+  cursor: pointer;
+  display: inline-block;
+}
