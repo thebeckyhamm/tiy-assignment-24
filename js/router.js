@@ -5,12 +5,11 @@ var App = Backbone.Router.extend({
         this.nav = new NavView();
         
         this.tracks = new TrackCollection();
-
         this.favoriteTracks = new FavoriteTrackCollection();
 
         this.searchBoxView = new SearchBoxView();
-
         this.infoView = new InfoView();
+        this.currentTrackView = new CurrentTrackView();
 
         this.trackListView = new TrackListView({
             collection: this.tracks
@@ -20,7 +19,6 @@ var App = Backbone.Router.extend({
             collection: this.favoriteTracks
         });
 
-        this.currentTrackView = new CurrentTrackView();
 
         this.listenTo(this.nav, "link:click", function(link) {
             this.navigate(link);
@@ -33,6 +31,10 @@ var App = Backbone.Router.extend({
         this.listenTo(this.trackListView, 'addToFavorites:track', function(id) {
             this.addFavorite(id);
         });
+
+        this.listenTo(this.trackListView, 'removeFromFavorites:track', function(id) {
+            this.removeFavorite(id);
+        })
 
         $("body").append( this.nav.render().el );
         $("body").append( this.searchBoxView.el );
@@ -68,8 +70,8 @@ var App = Backbone.Router.extend({
 
     },
 
-    removeFavorite: function(favoriteTrack) {
-        this.favoriteTracks.remove(favoriteTrack);
+    removeFavorite: function(favoriteTrackID) {
+        this.favoriteTracks.remove(this.favoriteTracks.get(favoriteTrackID));
     }
 
 
