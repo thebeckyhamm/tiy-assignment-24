@@ -34,7 +34,11 @@ var App = Backbone.Router.extend({
 
         this.listenTo(this.trackListView, 'removeFromFavorites:track', function(id) {
             this.removeFavorite(id);
-        })
+        });
+
+        this.listenTo(this.favoriteTrackListView, 'removeFromFavorites:track', function(id) {
+            this.removeFavorite(id);
+        });
 
         $("body").append( this.nav.render().el );
         $("body").append( this.searchBoxView.el );
