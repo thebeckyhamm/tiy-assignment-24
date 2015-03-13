@@ -14,6 +14,10 @@ var Track = Backbone.Model.extend({
         }
     },
 
+    pause: function() {
+        this.stream.pause();
+    },
+
     loadTrack: function() {
         SC.stream('/tracks/' + this.id, function(sound) {
             this.stream = sound;
@@ -33,8 +37,6 @@ var TrackCollection = Backbone.Collection.extend({
             this.reset(data);
         }.bind(this));
     }
-
-
 
 });
 
