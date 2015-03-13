@@ -1,3 +1,7 @@
 body {
   background-color: pink;
 }
+.track-star {
+  cursor: pointer;
+  display: inline-block;
+}

@@ -30,7 +30,9 @@ var App = Backbone.Router.extend({
             }
         });
 
-        this.listenTo(this.favoriteTracks, 'add:track', this.addFavorite);
+        this.listenTo(this.trackListView, 'addToFavorites:track', function(id) {
+            this.addFavorite(id);
+        });
 
         $("body").append( this.nav.render().el );
         $("body").append( this.searchBoxView.el );
@@ -47,7 +49,6 @@ var App = Backbone.Router.extend({
 
     },
 
-
     loadHome: function(query) {
 
 
@@ -60,8 +61,9 @@ var App = Backbone.Router.extend({
 
     },
 
-    addFavorite: function(favoriteTrack) {
-        this.favoriteTracks.add(favoriteTrack);
+    addFavorite: function(favoriteTrackID) {
+        console.log(this.tracks.get(favoriteTrackID));        
+        this.favoriteTracks.add(this.tracks.get(favoriteTrackID));
 
 
     },

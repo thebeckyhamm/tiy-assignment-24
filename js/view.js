@@ -64,11 +64,9 @@ var TrackView = Backbone.View.extend({
 
     template: JST["singleTrackView"],
 
-    className: "track",
-
     events: {
         "click .track-play" : "onPlayTrack"
-    }
+    },
 
     render: function() {
         this.$el.html( this.template( this.model.toJSON() ));
@@ -90,6 +88,11 @@ var TrackListView = Backbone.View.extend({
 
     className: "track-list-wrapper",
 
+    events: {
+
+        "click .track-star" : "addRemoveFavorites"
+    },
+
     render: function() {
         this.$el.html( this.template() );
 
@@ -102,6 +105,23 @@ var TrackListView = Backbone.View.extend({
 
         return this;
 
+    },
+
+    addRemoveFavorites: function(e) {
+        var $trackStar = $(e.currentTarget);
+
+        if ($trackStar.html() === "★") {
+            var id = $trackStar.parent().data("id");
+            $trackStar.empty().html("&#9734;");
+            this.trigger("removeFromFavorites:track", id);
+        } 
+        else {
+            var id = $trackStar.parent().data("id");
+            $trackStar.empty().html("&#9733;");
+            console.log(id);
+            this.trigger("addToFavorites:track", id);
+        }
+        
     }
 
 });
@@ -113,10 +133,6 @@ var FavoriteTrackListView = Backbone.View.extend({
 
     className: "track-list-wrapper",
 
-    events: {
-
-        "click .track-star" : "addTrack"
-    }
 
     render: function() {
         this.$el.html( this.template() );
