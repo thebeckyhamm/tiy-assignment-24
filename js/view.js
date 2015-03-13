@@ -36,3 +36,24 @@ var TrackView = Backbone.View.extend({
     }
 
 });
+
+
+var TrackListView = Backbone.View.extend({
+
+    template: JST["listView"],
+
+    render: function() {
+        this.$el.html( this.template() );
+
+        var $list = this.$("track-list");
+
+        this.collection.each(function(track) {
+            var trackView = new TrackView({model: track});
+            $list.append( trackView.render().el );
+        });
+
+        return this;
+
+    }
+
+});

@@ -32,7 +32,7 @@ this["JST"]["infoView"] = Handlebars.template({"compiler":[6,">= 2.0.0-beta.1"],
 },"useData":true});
 this["JST"] = this["JST"] || {};
 this["JST"]["listView"] = Handlebars.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
-    return "<div class=\"track-list\">\n    \n</div>";
+    return "<article>\n<div class=\"track-list\">\n    \n</div>\n</article>";
 },"useData":true});
 this["JST"] = this["JST"] || {};
 this["JST"]["navView"] = Handlebars.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
