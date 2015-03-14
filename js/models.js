@@ -50,5 +50,13 @@ var FavoriteTrackCollection = Backbone.Firebase.Collection.extend({
 
     url: "https://tiy-soundcloud.firebaseio.com/collections/favoriteTracks"
 
+    // loadTracks: function(data) {
+
+
+    //     this.fetch(data);
+    //     console.log(data);
+    //     this.trigger("tracks:loaded");
+    // }
+
 });
 

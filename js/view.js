@@ -59,9 +59,7 @@ var CurrentTrackView = Backbone.View.extend({
     },
 
     // initialize: function() {
-    //     this.on("play:track", function() {
-    //         this.render;
-    //     });
+    //     this.listenTo(this.collection, "play:track", this.render);
     // },
 
     render: function() {
@@ -178,7 +176,6 @@ var TrackListView = Backbone.View.extend({
         else {
             var id = $trackStar.parent().data("id");
             $trackStar.empty().html("&#9733;");
-            console.log(id);
             this.trigger("addToFavorites:track", id);
         }
         

@@ -32,6 +32,9 @@ var App = Backbone.Router.extend({
             if ( link === "home" ) {
                 this.loadHome();
             }
+            else {
+                this.loadFavorites();
+            }
         });
 
         // add to favorites listener
@@ -106,6 +109,18 @@ var App = Backbone.Router.extend({
 
     },
 
+    loadFavorites: function(query) {
+
+        this.favoriteTracks.on('sync', function(collection) {
+            console.log('collection is loaded', collection);
+            $("body").append( this.favoriteTrackListView.render().el );
+            //$("body").prepend( this.currentTrackView.render().el );
+        }.bind(this));
+
+
+
+    },
+
     playTrack: function(id) {
         this.tracks.get(id).play();
         this.infoView = new InfoView({
@@ -120,7 +135,6 @@ var App = Backbone.Router.extend({
     },
 
     addFavorite: function(favoriteTrackID) {
-        console.log(this.tracks.get(favoriteTrackID));        
         this.favoriteTracks.add(this.tracks.get(favoriteTrackID));
     },
 
