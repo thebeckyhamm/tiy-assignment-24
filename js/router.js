@@ -51,6 +51,8 @@ var App = Backbone.Router.extend({
         this.listenTo(this.searchBoxView, "search:submitted", function(keyword) {
             console.log("listen to got it");
             this.loadHome(keyword);
+
+            this.navigate("search/" + keyword);
         })
 
 
