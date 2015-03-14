@@ -53,10 +53,47 @@ var CurrentTrackView = Backbone.View.extend({
 
     template: JST["currentTrackView"],
 
+    events: {
+
+        "click .track-play" : "onPlayPause",
+    },
+
+    // initialize: function() {
+    //     this.on("play:track", function() {
+    //         this.render;
+    //     });
+    // },
+
     render: function() {
 
-        this.$el.html( this.template ( this.model.toJSON() ));
+        var model = this.getFirst();
+
+        this.$el.html( this.template ( model.toJSON() ));
         return this;
+    },
+
+    getFirst: function() {
+        console.log(this.collection.first());
+        return this.collection.first();
+
+    },
+
+    onPlayPause: function(e) {
+        var $trackButton = $(e.currentTarget);
+        if ($trackButton.data("state") === "play") {
+            $trackButton.data("state", "pause");
+            $trackButton.html("&#10074;&#10074;");
+            var id = $(e.currentTarget).parent().data("id");
+            this.trigger("play:track", id); 
+            console.log("play", id);  
+        }
+        else {
+            $trackButton.data("state", "play");
+            $trackButton.html("&#9658;");
+            var id = $(e.currentTarget).parent().data("id");
+            this.trigger("pause:track", id); 
+            console.log("pause", id);  
+        }
     }
 
 });
