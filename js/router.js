@@ -9,20 +9,25 @@ var App = Backbone.Router.extend({
         this.favoriteTracks = new FavoriteTrackCollection();
 
         // create search box view
-        this.searchBoxView = new SearchBoxView();
+        this.searchBoxView = new SearchBoxView({
+            el: ".search-box"
+        });
 
         this.currentTrackView = new CurrentTrackView({
-            collection: this.tracks
+            collection: this.tracks,
+            el: ".current-track"
         });
 
         // create track list
         this.trackListView = new TrackListView({
-            collection: this.tracks
+            collection: this.tracks,
+            el: ".all-tracks"
         });
 
         // create favorite track list view
         this.favoriteTrackListView = new FavoriteTrackListView({
-            collection: this.favoriteTracks
+            collection: this.favoriteTracks,
+            el: ".favorite-tracks"
         });
 
         // nav listener
@@ -33,6 +38,7 @@ var App = Backbone.Router.extend({
                 this.loadHome();
             }
             else {
+                console.log("loading favorites");
                 this.loadFavorites();
             }
         });
@@ -57,12 +63,20 @@ var App = Backbone.Router.extend({
             this.playTrack(id);
         });
 
+        this.listenTo(this.favoriteTrackListView, 'play:track', function(id) {
+            this.playTrack(id);
+        });
+
         this.listenTo(this.currentTrackView, 'play:track', function(id) {
             this.playTrack(id);
         });
 
         // pause listener
         this.listenTo(this.trackListView, 'pause:track', function(id) {
+            this.pauseTrack(id);
+        });
+
+        this.listenTo(this.favoriteTrackListView, 'pause:track', function(id) {
             this.pauseTrack(id);
         });
 
@@ -79,9 +93,7 @@ var App = Backbone.Router.extend({
         });
 
 
-        $("body").append( this.nav.render().el );
-        $("body").append( this.searchBoxView.el );
-        $("body").append( this.trackListView.el );
+        $("body").prepend( this.nav.render().el );
 
     },
 
@@ -95,44 +107,62 @@ var App = Backbone.Router.extend({
     },
 
     loadHome: function(query) {
-
-
+        this.favoriteTrackListView.$el.detach();
         this.tracks.loadTracks(query);
+
         this.searchBoxView.render();
 
         this.listenTo(this.tracks, "reset", function() {
 
-            $("body").append( this.trackListView.render() );
 
-            $("body").prepend( this.currentTrackView.render().el );
+            $("body").append( this.currentTrackView.render().el );
+            $("body").append( this.searchBoxView.render().el );
+            $("body").append( this.trackListView.render().el );
         });
 
     },
 
-    loadFavorites: function(query) {
-
+    loadFavorites: function() {
+        this.trackListView.$el.detach();
+        this.favoriteTracks.fetch();
         this.favoriteTracks.on('sync', function(collection) {
+
             console.log('collection is loaded', collection);
             $("body").append( this.favoriteTrackListView.render().el );
             //$("body").prepend( this.currentTrackView.render().el );
         }.bind(this));
-
-
-
     },
 
     playTrack: function(id) {
-        this.tracks.get(id).play();
-        this.infoView = new InfoView({
-            model: this.tracks.get(id)
-        });
+        if (this.tracks.length !== 0) {
+            this.tracks.get(id).play();
+            this.infoView = new InfoView({
+                model: this.tracks.get(id)
+            });        
+        }
+        else {
+            this.favoriteTracks.get(id).play();
+            this.infoView = new InfoView({
+                model: this.favoriteTracks.get(id)
+            });
+        }
         $("body").append( this.infoView.render().el);
 
     },
 
     pauseTrack: function(id) {
-        this.tracks.get(id).pause();
+        if (this.tracks.length !== 0) {
+            this.tracks.get(id).pause();   
+        }
+        else {
+            this.favoriteTracks.get(id).pause();   
+
+        }
+
     },
+
+
+
 
     addFavorite: function(favoriteTrackID) {
         this.favoriteTracks.add(this.tracks.get(favoriteTrackID));

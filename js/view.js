@@ -71,7 +71,6 @@ var CurrentTrackView = Backbone.View.extend({
     },
 
     getFirst: function() {
-        console.log(this.collection.first());
         return this.collection.first();
 
     },
@@ -101,11 +100,25 @@ var InfoView = Backbone.View.extend({
 
     template: JST["infoView"],
 
+
     render: function() {
+        this.model.set({bigArt : this.getBigArt()});
         this.$el.html( this.template( this.model.toJSON() ));
         return this;
+    },
+
+    getBigArt: function() {
+        if(this.model.get("artwork_url")) {
+            var art_url = this.model.get("artwork_url");
+            var sliced = art_url.split("").slice(0, art_url.length-9);
+            return sliced.join("") + "t500x500.jpg"; 
+        }
+        else {
+            return "http://lorempixel.com/500/500"
+        }
     }
-})
+
+});
 
 
 var TrackView = Backbone.View.extend({
@@ -125,8 +138,6 @@ var TrackView = Backbone.View.extend({
 var TrackListView = Backbone.View.extend({
 
     template: JST["listView"],
-
-    className: "track-list-wrapper",
 
     events: {
 
@@ -188,7 +199,11 @@ var FavoriteTrackListView = Backbone.View.extend({
 
     template: JST["listView"],
 
-    className: "track-list-wrapper",
+    events: {
+
+        "click .track-play" : "onPlayPause",
+        "click .track-star" : "removeFavorite"
+    },
 
 
     render: function() {
@@ -199,18 +214,36 @@ var FavoriteTrackListView = Backbone.View.extend({
         this.collection.each(function(track) {
             var trackView = new TrackView({model: track});
             $list.append( trackView.render().el );
+            this.$(".track-star").empty().html("&#9733;");
         }, this);
 
         return this;
 
     },
 
-    addTrack: function(favoriteTrack) {
+    onPlayPause: function(e) {
+        var $trackButton = $(e.currentTarget);
 
-        var trackView = new TrackView({model: favoriteTrack});
-        this.$el.append(trackView.render().el);
+        if ($trackButton.data("state") === "play") {
+            $trackButton.data("state", "pause");
+            $trackButton.html("&#10074;&#10074;");
+            var id = $(e.currentTarget).parent().data("id");
+            this.trigger("play:track", id);   
+        }
+        else {
+            $trackButton.data("state", "play");
+            $trackButton.html("&#9658;");
+            var id = $(e.currentTarget).parent().data("id");
+            this.trigger("pause:track", id);   
+        }
+    },
 
-        return this;
+    removeFavorite: function(e) {
+        var $trackStar = $(e.currentTarget);
+        var id = $trackStar.parent().data("id");
+        $trackStar.empty().html("&#9734;");
+        this.trigger("removeFromFavorites:track", id);
+        
     }
 
 });
