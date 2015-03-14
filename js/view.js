@@ -28,9 +28,22 @@ var SearchBoxView = Backbone.View.extend({
 
     template: JST["searchBoxView"],
 
+    events: {
+        "submit" : "onSubmit"
+    },
+
     render: function() {
         this.$el.html( this.template());
         return this;
+    },
+
+    onSubmit: function(e) {
+        e.preventDefault();
+
+        var keyword = this.$("input").val();
+
+        this.trigger("search:submitted", keyword);
+
     }
 
 });

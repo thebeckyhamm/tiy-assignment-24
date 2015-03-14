@@ -48,6 +48,11 @@ var App = Backbone.Router.extend({
             this.pauseTrack(id);
         });
 
+        this.listenTo(this.searchBoxView, "search:submitted", function(keyword) {
+            console.log("listen to got it");
+            this.loadHome(keyword);
+        })
+
 
 
 
