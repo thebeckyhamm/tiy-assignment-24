@@ -2,7 +2,7 @@ this["JST"] = this["JST"] || {};
 this["JST"]["currentTrackView"] = Handlebars.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
     var helper, alias1=helpers.helperMissing, alias2="function", alias3=this.escapeExpression;
 
-  return "<div class=\"current-track\" data-id=\""
+  return "<div data-id=\""
     + alias3(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"id","hash":{},"data":data}) : helper)))
     + "\">\n    <span class=\"track-play\" data-state=\"play\">\n        &#9658;\n    </span>\n    <span>"
     + alias3(((helper = (helper = helpers.title || (depth0 != null ? depth0.title : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"title","hash":{},"data":data}) : helper)))
@@ -50,7 +50,7 @@ this["JST"]["infoView"] = Handlebars.template({"1":function(depth0,helpers,parti
 },"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
     var stack1, helper, alias1=helpers.helperMissing, alias2="function", alias3=this.escapeExpression;
 
-  return "<div class=\"info-view\">\n    <div class=\"artwork\">\n        <img src=\""
+  return "    <div class=\"artwork\">\n        <img src=\""
     + alias3(((helper = (helper = helpers.bigArt || (depth0 != null ? depth0.bigArt : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"bigArt","hash":{},"data":data}) : helper)))
     + "\" alt=\""
     + alias3(((helper = (helper = helpers.title || (depth0 != null ? depth0.title : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"title","hash":{},"data":data}) : helper)))
@@ -61,7 +61,7 @@ this["JST"]["infoView"] = Handlebars.template({"1":function(depth0,helpers,parti
     + ((stack1 = helpers['if'].call(depth0,(depth0 != null ? depth0.tag_list : depth0),{"name":"if","hash":{},"fn":this.program(7, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
     + ((stack1 = helpers['if'].call(depth0,(depth0 != null ? depth0.downloadable : depth0),{"name":"if","hash":{},"fn":this.program(9, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
     + ((stack1 = helpers['if'].call(depth0,(depth0 != null ? depth0.favoritings_count : depth0),{"name":"if","hash":{},"fn":this.program(11, data, 0),"inverse":this.noop,"data":data})) != null ? stack1 : "")
-    + "\n\n    </ul>\n</div>";
+    + "\n\n    </ul>\n";
 },"useData":true});
 this["JST"] = this["JST"] || {};
 this["JST"]["listView"] = Handlebars.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
@@ -73,7 +73,7 @@ this["JST"]["navView"] = Handlebars.template({"compiler":[6,">= 2.0.0-beta.1"],"
 },"useData":true});
 this["JST"] = this["JST"] || {};
 this["JST"]["searchBoxView"] = Handlebars.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
-    return "<div class=\"search-icon\">\n    &#9658;\n</div>\n<form class=\"search-field\">\n    <input type=\"text\">\n    <button type=\"submit\">Submit</button>   \n</form>\n";
+    return "<div class=\"search-icon\">\n    <span class=\"fa fa-search\"></span>\n</div>\n<form class=\"search-field\">\n    <input type=\"text\" placeholder=\"Search by genre, artist, or keyword\">\n    <button type=\"submit\">Submit</button>   \n</form>\n";
 },"useData":true});
 this["JST"] = this["JST"] || {};
 this["JST"]["singleTrackView"] = Handlebars.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {

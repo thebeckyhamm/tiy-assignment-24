@@ -1,5 +1,111 @@
+@gray: #594F4F;
+@dark-blue: #547980;
+@teal: #45ADA8;
+@green: #9DE0AD;
+@lime: #E5FCC2;
+
+*, *:after, *:before {
+    box-sizing: border-box;
+}
+
 body {
-    background-color: pink;
+    background-color: @gray;
+    margin: 0;
+}
+
+
+
+nav ul {
+    background-color: @green;
+    margin: 0;
+    padding: 0;
+    padding-top: .5em;
+    li {
+        display: inline-block;
+        a {
+            background-color: @lime;
+            color: @teal;
+            display: inline-block;
+            margin-left: .25em;
+            padding: 1em;
+            text-decoration: none;
+        }
+    }
+}
+
+
+.track-search {
+    position: relative;
+}
+
+.current-track {
+    margin-left: 50px;
+}
+
+.search-box {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    .search-icon {
+        background-color: white;
+        cursor: pointer;
+        display: inline-block;
+        font-size: 1.2rem;
+        line-height: 1;
+        padding: 1rem;
+        &:hover {
+            color: @teal;
+        }
+    }
+    form {
+        display: none;
+        width: calc(~"99% - 50px");
+        button {
+            display: none;
+        }
+        input {
+            border: none;
+            padding: 1rem;
+            width: 100%;
+        }
+
+    }
+}
+.current-track div {
+    background-color: @dark-blue;
+    color: white;
+    font-size: 1.3rem;
+    .track-play {
+        background-color: darken(@dark-blue, 5%);
+        line-height: 1;
+        padding: 1rem;
+        &:hover {
+            background-color: lighten(@dark-blue, 5%);
+        }
+    }
+    span:nth-child(2) {
+        padding: 1rem;
+    }
+    span:last-child {
+        float: right;
+        padding: 1rem;
+    }
+}
+
+.info-view {
+    float: left;
+    width: 40%;
+    img {
+        width: 100%;
+        max-width: 400px;
+
+    }
+}
+
+.all-tracks, .favorite-tracks {
+    float: left;
+    padding-left: 1rem;
+    width: 60%;
 }
 
 .track-star {

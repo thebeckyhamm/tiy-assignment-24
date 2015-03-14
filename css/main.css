@@ -1,5 +1,96 @@
+*,
+*:after,
+*:before {
+  box-sizing: border-box;
+}
 body {
-  background-color: pink;
+  background-color: #594f4f;
+  margin: 0;
+}
+nav ul {
+  background-color: #9de0ad;
+  margin: 0;
+  padding: 0;
+  padding-top: .5em;
+}
+nav ul li {
+  display: inline-block;
+}
+nav ul li a {
+  background-color: #e5fcc2;
+  color: #45ada8;
+  display: inline-block;
+  margin-left: .25em;
+  padding: 1em;
+  text-decoration: none;
+}
+.track-search {
+  position: relative;
+}
+.current-track {
+  margin-left: 50px;
+}
+.search-box {
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+.search-box .search-icon {
+  background-color: white;
+  cursor: pointer;
+  display: inline-block;
+  font-size: 1.2rem;
+  line-height: 1;
+  padding: 1rem;
+}
+.search-box .search-icon:hover {
+  color: #45ada8;
+}
+.search-box form {
+  display: none;
+  width: calc(99% - 50px);
+}
+.search-box form button {
+  display: none;
+}
+.search-box form input {
+  border: none;
+  padding: 1rem;
+  width: 100%;
+}
+.current-track div {
+  background-color: #547980;
+  color: white;
+  font-size: 1.3rem;
+}
+.current-track div .track-play {
+  background-color: #4a6a71;
+  line-height: 1;
+  padding: 1rem;
+}
+.current-track div .track-play:hover {
+  background-color: #5e888f;
+}
+.current-track div span:nth-child(2) {
+  padding: 1rem;
+}
+.current-track div span:last-child {
+  float: right;
+  padding: 1rem;
+}
+.info-view {
+  float: left;
+  width: 40%;
+}
+.info-view img {
+  width: 100%;
+  max-width: 400px;
+}
+.all-tracks,
+.favorite-tracks {
+  float: left;
+  padding-left: 1rem;
+  width: 60%;
 }
 .track-star {
   cursor: pointer;

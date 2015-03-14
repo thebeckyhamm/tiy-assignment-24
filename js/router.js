@@ -18,6 +18,11 @@ var App = Backbone.Router.extend({
             el: ".current-track"
         });
 
+        this.infoView = new InfoView({
+            collection: this.tracks,
+            el: ".info-view"
+        });
+
         // create track list
         this.trackListView = new TrackListView({
             collection: this.tracks,
@@ -113,10 +118,9 @@ var App = Backbone.Router.extend({
         this.searchBoxView.render();
 
         this.listenTo(this.tracks, "reset", function() {
-
-
-            $("body").append( this.currentTrackView.render().el );
-            $("body").append( this.searchBoxView.render().el );
+            $(".track-search").append( this.currentTrackView.render().el );
+            $(".track-search").append( this.searchBoxView.render().el );
+            $("body").append( this.infoView.render().el );
             $("body").append( this.trackListView.render().el );
         });
 

@@ -29,7 +29,8 @@ var SearchBoxView = Backbone.View.extend({
     template: JST["searchBoxView"],
 
     events: {
-        "submit" : "onSubmit"
+        "submit" : "onSubmit",
+        "click .search-icon" : "onSearchClick"
     },
 
     render: function() {
@@ -44,6 +45,12 @@ var SearchBoxView = Backbone.View.extend({
 
         this.trigger("search:submitted", keyword);
 
+    },
+
+    onSearchClick: function(e) {
+        e.preventDefault();
+
+        this.$("form").css("display", "inline-block");
     }
 
 });
@@ -102,6 +109,7 @@ var InfoView = Backbone.View.extend({
 
 
     render: function() {
+        this.model = this.collection.first();
         this.model.set({bigArt : this.getBigArt()});
         this.$el.html( this.template( this.model.toJSON() ));
         return this;
