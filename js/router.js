@@ -73,6 +73,10 @@ var App = Backbone.Router.extend({
             this.playTrack(id);
         });
 
+        this.listenTo(this.homeView, 'play:currentTrack', function(id) {
+            this.playTrack(id);
+        });
+
         // pause listener
         this.listenTo(this.homeView, 'pause:track', function(id) {
             this.pauseTrack(id);
@@ -139,19 +143,7 @@ var App = Backbone.Router.extend({
     },
 
     playTrack: function(id) {
-            this.tracks.get(id).play();
-            // this.infoView = new InfoView({
-            //     model: this.tracks.get(id)
-            // });        
-
-        //$("body").append( this.infoView.render().el);
-
-    },
-
-    playFavoriteTrack: function(id) {
-        this.favoriteTracks.get(id).play();
-        //$("body").append( this.infoView.render().el);
-
+        this.tracks.get(id).play();
     },
 
     pauseTrack: function(id) {

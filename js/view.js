@@ -189,23 +189,30 @@ var HomeView = Backbone.View.extend({
 
     events: {
 
-        "click .track-item .track-play" : "onPlayPause",
-        "click .track-item .track-star" : "addRemoveFavorites"
+        "click .track-play" : "onPlayPause",
+        "click .track-item .track-star" : "addRemoveFavorites",
     },
 
     initialize: function() {
         this.listenTo(this.collection, "reset", this.render);
+
         this.on("play:track", function(id){
-            var currentTrackView = new CurrentTrackView({
-                model: this.collection.get(id)
-            });
-            this.$(".current-track").html( currentTrackView.render().el );
-            this.$(".current-track .track-play").data("state", "pause");
-            this.$(".current-track .track-play").html("&#10074;&#10074;");
+            if(this.firstModel !== this.collection.get(id)) {
+                var currentTrackView = new CurrentTrackView({
+                    model: this.collection.get(id)
+                });
+                this.$(".current-track").html( currentTrackView.render().el );              
+            } 
+
+            this.$("[data-id='" + id +"']" ).data("state", "pause");
+            this.$("[data-id='" + id +"']" ).html("&#10074;&#10074;");
+
         });
+
         this.on("pause:track", function(id){
-            this.$(".current-track .track-play").data("state", "pause");
-            this.$(".current-track .track-play").html("&#9658;");
+            this.$("[data-id='" + id +"']" ).data("state", "play");
+            this.$("[data-id='" + id +"']" ).html("&#9658;");
+
         });
     },
 
@@ -213,7 +220,7 @@ var HomeView = Backbone.View.extend({
     render: function() {
         this.$el.html( this.template() );
 
-        var firstModel = this.collection.first();
+        this.firstModel = this.collection.first();
 
         var trackListView = new TrackListView({
             collection: this.collection
@@ -221,7 +228,7 @@ var HomeView = Backbone.View.extend({
         this.$(".all-tracks").html( trackListView.render().el );
 
         var currentTrackView = new CurrentTrackView({
-            model: firstModel
+            model: this.firstModel
         });
         this.$(".current-track").html( currentTrackView.render().el );
 
@@ -232,18 +239,15 @@ var HomeView = Backbone.View.extend({
         var $trackButton = $(e.currentTarget);
 
         if ($trackButton.data("state") === "play") {
-            $trackButton.data("state", "pause");
-            $trackButton.html("&#10074;&#10074;");
             var id = $(e.currentTarget).data("id");
             this.trigger("play:track", id);   
         }
         else {
-            $trackButton.data("state", "play");
-            $trackButton.html("&#9658;");
             var id = $(e.currentTarget).data("id");
             this.trigger("pause:track", id);   
         }
-    },
+    }
+
 
 
 
