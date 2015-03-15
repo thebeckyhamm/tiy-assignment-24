@@ -138,6 +138,8 @@ var TrackView = Backbone.View.extend({
 
     tagName: "tr",
 
+    className: "track-item",
+
     render: function() {
         this.$el.html( this.template( this.model.toJSON() ));
 
@@ -152,12 +154,6 @@ var TrackListView = Backbone.View.extend({
 
     template: JST["listView"],
 
-    events: {
-
-        "click .track-play" : "onPlayPause",
-        "click .track-star" : "addRemoveFavorites"
-    },
-
     render: function() {
         this.$el.html( this.template() );
 
@@ -170,23 +166,6 @@ var TrackListView = Backbone.View.extend({
 
         return this;
 
-    },
-
-    onPlayPause: function(e) {
-        var $trackButton = $(e.currentTarget);
-
-        if ($trackButton.data("state") === "play") {
-            $trackButton.data("state", "pause");
-            $trackButton.html("&#10074;&#10074;");
-            var id = $(e.currentTarget).data("id");
-            this.trigger("play:track", id);   
-        }
-        else {
-            $trackButton.data("state", "play");
-            $trackButton.html("&#9658;");
-            var id = $(e.currentTarget).data("id");
-            this.trigger("pause:track", id);   
-        }
     },
 
     addRemoveFavorites: function(e) {
@@ -211,6 +190,12 @@ var HomeView = Backbone.View.extend({
 
     template: JST["homeView"],
 
+    events: {
+
+        "click .track-item .track-play" : "onPlayPause",
+        "click .track-item .track-star" : "addRemoveFavorites"
+    },
+
     initialize: function() {
         this.listenTo(this.collection, "reset", this.render);
     },
@@ -223,7 +208,24 @@ var HomeView = Backbone.View.extend({
             collection: this.collection
         });
         this.$(".all-tracks").html( trackListView.render().el );
-    }
+    },
+
+    onPlayPause: function(e) {
+        var $trackButton = $(e.currentTarget);
+
+        if ($trackButton.data("state") === "play") {
+            $trackButton.data("state", "pause");
+            $trackButton.html("&#10074;&#10074;");
+            var id = $(e.currentTarget).data("id");
+            this.trigger("play:track", id);   
+        }
+        else {
+            $trackButton.data("state", "play");
+            $trackButton.html("&#9658;");
+            var id = $(e.currentTarget).data("id");
+            this.trigger("pause:track", id);   
+        }
+    },
 
 
 

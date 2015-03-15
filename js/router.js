@@ -68,10 +68,15 @@ var App = Backbone.Router.extend({
         //     this.removeFavorite(id);
         // });
 
-        // // play listeners
-        // this.listenTo(this.trackListView, 'play:track', function(id) {
-        //     this.playTrack(id);
-        // });
+        // play listeners
+        this.listenTo(this.homeView, 'play:track', function(id) {
+            this.playTrack(id);
+        });
+
+        // pause listener
+        this.listenTo(this.homeView, 'pause:track', function(id) {
+            this.pauseTrack(id);
+        });
 
         // this.listenTo(this.favoriteTrackListView, 'play:track', function(id) {
         //     this.playFavoriteTrack(id);
@@ -81,10 +86,6 @@ var App = Backbone.Router.extend({
         //     this.playTrack(id);
         // });
 
-        // // pause listener
-        // this.listenTo(this.trackListView, 'pause:track', function(id) {
-        //     this.pauseTrack(id);
-        // });
 
         // this.listenTo(this.favoriteTrackListView, 'pause:track', function(id) {
         //     this.pauseTrack(id);
@@ -150,7 +151,7 @@ var App = Backbone.Router.extend({
             //     model: this.tracks.get(id)
             // });        
 
-        $("body").append( this.infoView.render().el);
+        //$("body").append( this.infoView.render().el);
 
     },
 
@@ -161,14 +162,7 @@ var App = Backbone.Router.extend({
     },
 
     pauseTrack: function(id) {
-        if (this.tracks.length !== 0) {
-            this.tracks.get(id).pause();   
-        }
-        else {
-            this.favoriteTracks.get(id).pause();   
-
-        }
-
+        this.tracks.get(id).pause();   
     },
 
 
