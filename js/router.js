@@ -119,16 +119,9 @@ var App = Backbone.Router.extend({
     },
 
     loadHome: function(query) {
-        //this.favoriteTrackListView.$el.detach();
         this.tracks.loadTracks(query);
 
-        //this.searchBoxView.render();
-
         this.listenTo(this.tracks, "reset", function() {
-            // $(".track-search").append( this.currentTrackView.render().el );
-            // $(".track-search").append( this.searchBoxView.render().el );
-            // $(".info-view").append( this.infoView.render().el );
-            // $("body").append( this.trackListView.render().el );
             $("body").append( this.homeView.render() );
         });
 

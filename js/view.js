@@ -60,45 +60,42 @@ var CurrentTrackView = Backbone.View.extend({
 
     template: JST["currentTrackView"],
 
-    events: {
+    // events: {
 
-        "click .track-play" : "onPlayPause",
-    },
+    //     "click .track-play" : "onPlayPause",
+    // },
 
     // initialize: function() {
     //     this.listenTo(this.collection, "play:track", this.render);
     // },
 
     render: function() {
-
-        var model = this.getFirst();
-
-        this.$el.html( this.template ( model.toJSON() ));
+        this.$el.html( this.template ( this.model.toJSON() ));
         return this;
     },
 
-    getFirst: function() {
-        return this.collection.first();
+    // getFirst: function() {
+    //     return this.collection.first();
 
-    },
+    // },
 
-    onPlayPause: function(e) {
-        var $trackButton = $(e.currentTarget);
-        if ($trackButton.data("state") === "play") {
-            $trackButton.data("state", "pause");
-            $trackButton.html("&#10074;&#10074;");
-            var id = $(e.currentTarget).parent().data("id");
-            this.trigger("play:track", id); 
-            console.log("play", id);  
-        }
-        else {
-            $trackButton.data("state", "play");
-            $trackButton.html("&#9658;");
-            var id = $(e.currentTarget).parent().data("id");
-            this.trigger("pause:track", id); 
-            console.log("pause", id);  
-        }
-    }
+    // onPlayPause: function(e) {
+    //     var $trackButton = $(e.currentTarget);
+    //     if ($trackButton.data("state") === "play") {
+    //         $trackButton.data("state", "pause");
+    //         $trackButton.html("&#10074;&#10074;");
+    //         var id = $(e.currentTarget).parent().data("id");
+    //         this.trigger("play:track", id); 
+    //         console.log("play", id);  
+    //     }
+    //     else {
+    //         $trackButton.data("state", "play");
+    //         $trackButton.html("&#9658;");
+    //         var id = $(e.currentTarget).parent().data("id");
+    //         this.trigger("pause:track", id); 
+    //         console.log("pause", id);  
+    //     }
+    // }
 
 });
 
@@ -198,16 +195,37 @@ var HomeView = Backbone.View.extend({
 
     initialize: function() {
         this.listenTo(this.collection, "reset", this.render);
+        this.on("play:track", function(id){
+            var currentTrackView = new CurrentTrackView({
+                model: this.collection.get(id)
+            });
+            this.$(".current-track").html( currentTrackView.render().el );
+            this.$(".current-track .track-play").data("state", "pause");
+            this.$(".current-track .track-play").html("&#10074;&#10074;");
+        });
+        this.on("pause:track", function(id){
+            this.$(".current-track .track-play").data("state", "pause");
+            this.$(".current-track .track-play").html("&#9658;");
+        });
     },
 
 
     render: function() {
         this.$el.html( this.template() );
 
+        var firstModel = this.collection.first();
+
         var trackListView = new TrackListView({
             collection: this.collection
         });
         this.$(".all-tracks").html( trackListView.render().el );
+
+        var currentTrackView = new CurrentTrackView({
+            model: firstModel
+        });
+        this.$(".current-track").html( currentTrackView.render().el );
+
+
     },
 
     onPlayPause: function(e) {
