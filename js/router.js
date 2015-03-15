@@ -9,30 +9,35 @@ var App = Backbone.Router.extend({
         this.favoriteTracks = new FavoriteTrackCollection();
 
         // create search box view
-        this.searchBoxView = new SearchBoxView({
-            el: ".search-box"
-        });
+        // this.searchBoxView = new SearchBoxView({
+        //     el: ".search-box"
+        // });
 
-        this.currentTrackView = new CurrentTrackView({
-            collection: this.tracks,
-            el: ".current-track"
-        });
+        // this.currentTrackView = new CurrentTrackView({
+        //     collection: this.tracks,
+        //     el: ".current-track"
+        // });
 
-        this.infoView = new InfoView({
-            collection: this.tracks,
-            el: ".info-view"
-        });
+        // this.infoView = new InfoView({
+        //     collection: this.tracks,
+        //     el: ".info-view"
+        // });
 
         // create track list
-        this.trackListView = new TrackListView({
-            collection: this.tracks,
-            el: ".all-tracks"
-        });
+        // this.trackListView = new TrackListView({
+        //     collection: this.tracks,
+        //     el: ".all-tracks"
+        // });
 
         // create favorite track list view
-        this.favoriteTrackListView = new FavoriteTrackListView({
-            collection: this.favoriteTracks,
-            el: ".favorite-tracks"
+        // this.favoriteTrackListView = new FavoriteTrackListView({
+        //     collection: this.favoriteTracks,
+        //     el: ".favorite-tracks"
+        // });
+
+        this.homeView = new HomeView({
+            collection: this.tracks,
+            el: ".home"
         });
 
         // nav listener
@@ -49,53 +54,53 @@ var App = Backbone.Router.extend({
         });
 
         // add to favorites listener
-        this.listenTo(this.trackListView, 'addToFavorites:track', function(id) {
-            this.addFavorite(id);
-        });
+        // this.listenTo(this.trackListView, 'addToFavorites:track', function(id) {
+        //     this.addFavorite(id);
+        // });
 
-        // remove from favorites listener for regular track list
-        this.listenTo(this.trackListView, 'removeFromFavorites:track', function(id) {
-            this.removeFavorite(id);
-        });
+        // // remove from favorites listener for regular track list
+        // this.listenTo(this.trackListView, 'removeFromFavorites:track', function(id) {
+        //     this.removeFavorite(id);
+        // });
 
-        // remove from favorites listener for favorite track list
-        this.listenTo(this.favoriteTrackListView, 'removeFromFavorites:track', function(id) {
-            this.removeFavorite(id);
-        });
+        // // remove from favorites listener for favorite track list
+        // this.listenTo(this.favoriteTrackListView, 'removeFromFavorites:track', function(id) {
+        //     this.removeFavorite(id);
+        // });
 
-        // play listeners
-        this.listenTo(this.trackListView, 'play:track', function(id) {
-            this.playTrack(id);
-        });
+        // // play listeners
+        // this.listenTo(this.trackListView, 'play:track', function(id) {
+        //     this.playTrack(id);
+        // });
 
-        this.listenTo(this.favoriteTrackListView, 'play:track', function(id) {
-            this.playFavoriteTrack(id);
-        });
+        // this.listenTo(this.favoriteTrackListView, 'play:track', function(id) {
+        //     this.playFavoriteTrack(id);
+        // });
 
-        this.listenTo(this.currentTrackView, 'play:track', function(id) {
-            this.playTrack(id);
-        });
+        // this.listenTo(this.currentTrackView, 'play:track', function(id) {
+        //     this.playTrack(id);
+        // });
 
-        // pause listener
-        this.listenTo(this.trackListView, 'pause:track', function(id) {
-            this.pauseTrack(id);
-        });
+        // // pause listener
+        // this.listenTo(this.trackListView, 'pause:track', function(id) {
+        //     this.pauseTrack(id);
+        // });
 
-        this.listenTo(this.favoriteTrackListView, 'pause:track', function(id) {
-            this.pauseTrack(id);
-        });
+        // this.listenTo(this.favoriteTrackListView, 'pause:track', function(id) {
+        //     this.pauseTrack(id);
+        // });
 
-        this.listenTo(this.currentTrackView, 'pause:track', function(id) {
-            this.pauseTrack(id);
-        });
+        // this.listenTo(this.currentTrackView, 'pause:track', function(id) {
+        //     this.pauseTrack(id);
+        // });
 
 
-        // search box listener
-        this.listenTo(this.searchBoxView, "search:submitted", function(keyword) {
-            this.loadHome(keyword);
+        // // search box listener
+        // this.listenTo(this.searchBoxView, "search:submitted", function(keyword) {
+        //     this.loadHome(keyword);
 
-            this.navigate("search/" + keyword);
-        });
+        //     this.navigate("search/" + keyword);
+        // });
 
 
         $("body").prepend( this.nav.render().el );
@@ -113,16 +118,17 @@ var App = Backbone.Router.extend({
     },
 
     loadHome: function(query) {
-        this.favoriteTrackListView.$el.detach();
+        //this.favoriteTrackListView.$el.detach();
         this.tracks.loadTracks(query);
 
-        this.searchBoxView.render();
+        //this.searchBoxView.render();
 
         this.listenTo(this.tracks, "reset", function() {
-            $(".track-search").append( this.currentTrackView.render().el );
-            $(".track-search").append( this.searchBoxView.render().el );
-            $(".info-view").append( this.infoView.render().el );
-            $("body").append( this.trackListView.render().el );
+            // $(".track-search").append( this.currentTrackView.render().el );
+            // $(".track-search").append( this.searchBoxView.render().el );
+            // $(".info-view").append( this.infoView.render().el );
+            // $("body").append( this.trackListView.render().el );
+            $("body").append( this.homeView.render() );
         });
 
     },

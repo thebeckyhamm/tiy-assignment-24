@@ -152,8 +152,6 @@ var TrackListView = Backbone.View.extend({
 
     template: JST["listView"],
 
-    tagName: "table",
-
     events: {
 
         "click .track-play" : "onPlayPause",
@@ -163,7 +161,7 @@ var TrackListView = Backbone.View.extend({
     render: function() {
         this.$el.html( this.template() );
 
-        var $list = this.$(".track-list");
+        var $list = this.$("tbody");
 
         this.collection.each(function(track) {
             var trackView = new TrackView({model: track});
@@ -206,6 +204,28 @@ var TrackListView = Backbone.View.extend({
         }
         
     }
+
+});
+
+var HomeView = Backbone.View.extend({
+
+    template: JST["homeView"],
+
+    initialize: function() {
+        this.listenTo(this.collection, "reset", this.render);
+    },
+
+
+    render: function() {
+        this.$el.html( this.template() );
+
+        var trackListView = new TrackListView({
+            collection: this.collection
+        });
+        this.$(".all-tracks").html( trackListView.render().el );
+    }
+
+
 
 });
 

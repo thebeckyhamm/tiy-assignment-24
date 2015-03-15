@@ -11,6 +11,10 @@ this["JST"]["currentTrackView"] = Handlebars.template({"compiler":[6,">= 2.0.0-b
     + "</span>\n</div>";
 },"useData":true});
 this["JST"] = this["JST"] || {};
+this["JST"]["homeView"] = Handlebars.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
+    return "    <div class=\"track-search\">\n        <div class=\"current-track\"></div>\n        <div class=\"search-box\"></div>\n    </div>\n    <div class=\"info-view\"></div>\n    <div class=\"all-tracks\"></div>    \n";
+},"useData":true});
+this["JST"] = this["JST"] || {};
 this["JST"]["infoView"] = Handlebars.template({"1":function(depth0,helpers,partials,data) {
     var helper;
 
@@ -65,7 +69,7 @@ this["JST"]["infoView"] = Handlebars.template({"1":function(depth0,helpers,parti
 },"useData":true});
 this["JST"] = this["JST"] || {};
 this["JST"]["listView"] = Handlebars.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
-    return "<table class=\"track-list\">\n    \n</table>\n";
+    return "<table class=\"track-list\">\n    <tbody></tbody>    \n</table>\n";
 },"useData":true});
 this["JST"] = this["JST"] || {};
 this["JST"]["navView"] = Handlebars.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
