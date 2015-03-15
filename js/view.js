@@ -28,30 +28,13 @@ var SearchBoxView = Backbone.View.extend({
 
     template: JST["searchBoxView"],
 
-    events: {
-        "submit" : "onSubmit",
-        "click .search-icon" : "onSearchClick"
-    },
 
     render: function() {
         this.$el.html( this.template());
         return this;
-    },
-
-    onSubmit: function(e) {
-        e.preventDefault();
-
-        var keyword = this.$("input").val();
-
-        this.trigger("search:submitted", keyword);
-
-    },
-
-    onSearchClick: function(e) {
-        e.preventDefault();
-
-        this.$("form").css("display", "inline-block");
     }
+
+
 
 });
 
@@ -59,6 +42,8 @@ var SearchBoxView = Backbone.View.extend({
 var CurrentTrackView = Backbone.View.extend({
 
     template: JST["currentTrackView"],
+
+    className: "z-up",
 
     render: function() {
         this.$el.html( this.template ( this.model.toJSON() ));
@@ -169,6 +154,9 @@ var HomeView = Backbone.View.extend({
 
         "click .track-play" : "onPlayPause",
         "click .track-item .track-star" : "addRemoveFavorites",
+        "submit .search-box" : "onSubmit",
+        "click .search-icon" : "onSearchClick"
+
     },
 
     initialize: function() {
@@ -197,6 +185,9 @@ var HomeView = Backbone.View.extend({
             this.$("[data-id='" + id +"']" ).html("&#9658;");
 
         });
+
+        this.on("search:submitted", function(){
+        });
     },
 
 
@@ -214,6 +205,11 @@ var HomeView = Backbone.View.extend({
             model: this.firstModel
         });
         this.$(".current-track").html( currentTrackView.render().el );
+
+
+        var searchBoxView = new SearchBoxView();
+
+        this.$(".search-box").html( searchBoxView.render().el);
 
         var infoView = new InfoView({
             model: this.firstModel
@@ -233,6 +229,23 @@ var HomeView = Backbone.View.extend({
             var id = $(e.currentTarget).data("id");
             this.trigger("pause:track", id);   
         }
+    },
+
+    onSubmit: function(e) {
+        e.preventDefault();
+
+        var keyword = this.$("input").val();
+        var id = this.$("[data-state='play']").data("id");
+
+        this.trigger("search:submitted", keyword, id);
+
+    },
+
+    onSearchClick: function(e) {
+        e.preventDefault();
+
+        this.$("form").css("display", "inline-block");
+        this.$(".current-track div").removeClass("z-up");
     }
 
 

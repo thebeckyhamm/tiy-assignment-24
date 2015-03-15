@@ -101,11 +101,12 @@ var App = Backbone.Router.extend({
 
 
         // // search box listener
-        // this.listenTo(this.searchBoxView, "search:submitted", function(keyword) {
-        //     this.loadHome(keyword);
+        this.listenTo(this.homeView, "search:submitted", function(keyword, id) {
 
-        //     this.navigate("search/" + keyword);
-        // });
+            this.loadHome(keyword, id);
+
+            this.navigate("search/" + keyword);
+        });
 
 
         $("body").prepend( this.nav.render().el );
@@ -122,7 +123,10 @@ var App = Backbone.Router.extend({
 
     },
 
-    loadHome: function(query) {
+    loadHome: function(query, id) {
+        if(id) {
+            this.tracks.get(id).pause();
+        }
         this.tracks.loadTracks(query);
 
         this.listenTo(this.tracks, "reset", function() {
