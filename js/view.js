@@ -60,42 +60,10 @@ var CurrentTrackView = Backbone.View.extend({
 
     template: JST["currentTrackView"],
 
-    // events: {
-
-    //     "click .track-play" : "onPlayPause",
-    // },
-
-    // initialize: function() {
-    //     this.listenTo(this.collection, "play:track", this.render);
-    // },
-
     render: function() {
         this.$el.html( this.template ( this.model.toJSON() ));
         return this;
     },
-
-    // getFirst: function() {
-    //     return this.collection.first();
-
-    // },
-
-    // onPlayPause: function(e) {
-    //     var $trackButton = $(e.currentTarget);
-    //     if ($trackButton.data("state") === "play") {
-    //         $trackButton.data("state", "pause");
-    //         $trackButton.html("&#10074;&#10074;");
-    //         var id = $(e.currentTarget).parent().data("id");
-    //         this.trigger("play:track", id); 
-    //         console.log("play", id);  
-    //     }
-    //     else {
-    //         $trackButton.data("state", "play");
-    //         $trackButton.html("&#9658;");
-    //         var id = $(e.currentTarget).parent().data("id");
-    //         this.trigger("pause:track", id); 
-    //         console.log("pause", id);  
-    //     }
-    // }
 
 });
 
@@ -133,9 +101,25 @@ var TrackView = Backbone.View.extend({
     className: "track-item",
 
     render: function() {
+        this.model.set({
+            time: this.durationFormat()
+        });
         this.$el.html( this.template( this.model.toJSON() ));
 
         return this;
+    },
+
+    durationFormat: function() {
+        var duration = this.model.get("duration");
+        var duration = duration / 1000 / 60;
+        var minutes = Math.floor(duration);
+        var seconds = Math.floor((duration - minutes) * 60);
+        if( seconds.toString().split("").length === 1) {
+            seconds = "0" + seconds;
+        }
+        var time = minutes + ":" + seconds;
+        return time;
+            
     }
 
 });

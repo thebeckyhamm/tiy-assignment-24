@@ -7,7 +7,7 @@ this["JST"]["currentTrackView"] = Handlebars.template({"compiler":[6,">= 2.0.0-b
     + "\">\n        &#9658;\n    </span>\n    <span>"
     + alias3(((helper = (helper = helpers.title || (depth0 != null ? depth0.title : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"title","hash":{},"data":data}) : helper)))
     + "</span>\n    <span>"
-    + alias3(((helper = (helper = helpers.duration || (depth0 != null ? depth0.duration : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"duration","hash":{},"data":data}) : helper)))
+    + alias3(((helper = (helper = helpers.time || (depth0 != null ? depth0.time : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"time","hash":{},"data":data}) : helper)))
     + "</span>\n</div>";
 },"useData":true});
 this["JST"] = this["JST"] || {};
@@ -88,6 +88,6 @@ this["JST"]["singleTrackView"] = Handlebars.template({"compiler":[6,">= 2.0.0-be
     + "\">&#9658;</td>\n    <td class=\"track-star\">&#9734;</td>\n    <td class=\"track-title\">"
     + alias3(((helper = (helper = helpers.title || (depth0 != null ? depth0.title : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"title","hash":{},"data":data}) : helper)))
     + "</td>\n    <td class=\"track-duration\">"
-    + alias3(((helper = (helper = helpers.duration || (depth0 != null ? depth0.duration : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"duration","hash":{},"data":data}) : helper)))
+    + alias3(((helper = (helper = helpers.time || (depth0 != null ? depth0.time : depth0)) != null ? helper : alias1),(typeof helper === alias2 ? helper.call(depth0,{"name":"time","hash":{},"data":data}) : helper)))
     + "</td>\n";
 },"useData":true});
