@@ -104,13 +104,10 @@ var InfoView = Backbone.View.extend({
 
     template: JST["infoView"],
 
-
     render: function() {
-        if(!this.model) {
-            this.model = this.collection.first();
-            
-        }
-        this.model.set({bigArt : this.getBigArt()});
+        this.model.set({
+            bigArt : this.getBigArt()
+        });
         this.$el.html( this.template( this.model.toJSON() ));
         return this;
     },
@@ -122,7 +119,7 @@ var InfoView = Backbone.View.extend({
             return sliced.join("") + "t500x500.jpg"; 
         }
         else {
-            return "http://lorempixel.com/500/500"
+            return "http://lorempixel.com/g/500/500"
         }
     }
 
@@ -132,17 +129,14 @@ var InfoView = Backbone.View.extend({
 var TrackView = Backbone.View.extend({
 
     template: JST["singleTrackView"],
-
     tagName: "tr",
-
     className: "track-item",
 
     render: function() {
         this.$el.html( this.template( this.model.toJSON() ));
 
         return this;
-    },
-
+    }
 
 });
 
@@ -201,7 +195,12 @@ var HomeView = Backbone.View.extend({
                 var currentTrackView = new CurrentTrackView({
                     model: this.collection.get(id)
                 });
-                this.$(".current-track").html( currentTrackView.render().el );              
+                this.$(".current-track").html( currentTrackView.render().el ); 
+
+                var infoView = new InfoView({
+                    model: this.collection.get(id)
+                });
+                this.$(".info-view").html( infoView.render().el );    
             } 
 
             this.$("[data-id='" + id +"']" ).data("state", "pause");
@@ -232,6 +231,10 @@ var HomeView = Backbone.View.extend({
         });
         this.$(".current-track").html( currentTrackView.render().el );
 
+        var infoView = new InfoView({
+            model: this.firstModel
+        });
+        this.$(".info-view").html( infoView.render().el );
 
     },
 
@@ -247,7 +250,6 @@ var HomeView = Backbone.View.extend({
             this.trigger("pause:track", id);   
         }
     }
-
 
 
 
