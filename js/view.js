@@ -109,7 +109,10 @@ var InfoView = Backbone.View.extend({
 
 
     render: function() {
-        this.model = this.collection.first();
+        if(!this.model) {
+            this.model = this.collection.first();
+            
+        }
         this.model.set({bigArt : this.getBigArt()});
         this.$el.html( this.template( this.model.toJSON() ));
         return this;
@@ -133,6 +136,8 @@ var TrackView = Backbone.View.extend({
 
     template: JST["singleTrackView"],
 
+    tagName: "tr",
+
     render: function() {
         this.$el.html( this.template( this.model.toJSON() ));
 
@@ -146,6 +151,8 @@ var TrackView = Backbone.View.extend({
 var TrackListView = Backbone.View.extend({
 
     template: JST["listView"],
+
+    tagName: "table",
 
     events: {
 
@@ -173,13 +180,13 @@ var TrackListView = Backbone.View.extend({
         if ($trackButton.data("state") === "play") {
             $trackButton.data("state", "pause");
             $trackButton.html("&#10074;&#10074;");
-            var id = $(e.currentTarget).parent().data("id");
+            var id = $(e.currentTarget).data("id");
             this.trigger("play:track", id);   
         }
         else {
             $trackButton.data("state", "play");
             $trackButton.html("&#9658;");
-            var id = $(e.currentTarget).parent().data("id");
+            var id = $(e.currentTarget).data("id");
             this.trigger("pause:track", id);   
         }
     },
@@ -206,6 +213,8 @@ var TrackListView = Backbone.View.extend({
 var FavoriteTrackListView = Backbone.View.extend({
 
     template: JST["listView"],
+
+    tagName: "table",
 
     events: {
 
@@ -235,13 +244,13 @@ var FavoriteTrackListView = Backbone.View.extend({
         if ($trackButton.data("state") === "play") {
             $trackButton.data("state", "pause");
             $trackButton.html("&#10074;&#10074;");
-            var id = $(e.currentTarget).parent().data("id");
+            var id = $(e.currentTarget).data("id");
             this.trigger("play:track", id);   
         }
         else {
             $trackButton.data("state", "play");
             $trackButton.html("&#9658;");
-            var id = $(e.currentTarget).parent().data("id");
+            var id = $(e.currentTarget).data("id");
             this.trigger("pause:track", id);   
         }
     },

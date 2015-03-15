@@ -4,13 +4,21 @@
 @green: #9DE0AD;
 @lime: #E5FCC2;
 
+@import url(http://fonts.googleapis.com/css?family=Roboto+Condensed:400,700);
+
 *, *:after, *:before {
     box-sizing: border-box;
 }
 
 body {
     background-color: @gray;
+    font-family: "Roboto Condensed";
     margin: 0;
+}
+
+.z-up{
+    position: relative;
+    z-index: 1;
 }
 
 
@@ -51,6 +59,7 @@ nav ul {
         cursor: pointer;
         display: inline-block;
         font-size: 1.2rem;
+        height: 53px;
         line-height: 1;
         padding: 1rem;
         &:hover {
@@ -77,6 +86,8 @@ nav ul {
     font-size: 1.3rem;
     .track-play {
         background-color: darken(@dark-blue, 5%);
+        cursor: pointer;
+        display: inline-block;
         line-height: 1;
         padding: 1rem;
         &:hover {
@@ -104,16 +115,30 @@ nav ul {
 
 .all-tracks, .favorite-tracks {
     float: left;
-    padding-left: 1rem;
     width: 60%;
 }
 
-.track-star {
-    cursor: pointer;
-    display: inline-block;
-}
+.track-list {
+    background-color: @teal;
+    color: white;
+    font-size: 1.1rem;
+    line-height: 1;
+    padding: 1rem;
+    .track-play {
+        background-color: @lime;
+        color: @dark-blue;
+        cursor: pointer;
+        padding: .5rem;
+    }
+    .track-star, .track-title {
+        padding: .5rem;
+    }
+    .track-star {
+        cursor: pointer;
+    }
+    .track-duration {
+        padding: .5rem;
+        text-align: right;
+    }
 
-.track-play {
-    cursor: pointer;
-    display: inline-block;
 }
