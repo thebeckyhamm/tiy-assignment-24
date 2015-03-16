@@ -15,7 +15,9 @@ var Track = Backbone.Model.extend({
     },
 
     pause: function() {
-        this.stream.pause();
+        if(this.stream) {
+            this.stream.pause();
+        }
     },
 
     loadTrack: function() {

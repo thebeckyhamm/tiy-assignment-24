@@ -111,7 +111,9 @@ nav ul li a {
 }
 .all-tracks,
 .favorite-tracks {
+  background-color: #45ada8;
   float: left;
+  height: 85vh;
   width: calc(100% - 400px);
 }
 .track-list {

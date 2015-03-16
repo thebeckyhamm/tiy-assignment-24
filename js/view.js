@@ -146,17 +146,15 @@ var HomeView = Backbone.View.extend({
         this.listenTo(this.collection, "reset", this.render);
 
         this.on("play:track", function(id){
-            if(this.firstModel !== this.collection.get(id)) {
-                var currentTrackView = new CurrentTrackView({
-                    model: this.collection.get(id)
-                });
-                this.$(".current-track").html( currentTrackView.render().el ); 
+            var currentTrackView = new CurrentTrackView({
+                model: this.collection.get(id)
+            });
+            this.$(".current-track").html( currentTrackView.render().el ); 
 
-                var infoView = new InfoView({
-                    model: this.collection.get(id)
-                });
-                this.$(".info-view").html( infoView.render().el );    
-            } 
+            var infoView = new InfoView({
+                model: this.collection.get(id)
+            });
+            this.$(".info-view").html( infoView.render().el );    
 
             this.$("[data-id='" + id +"']" ).data("state", "pause");
             this.$("[data-id='" + id +"']" ).html("&#10074;&#10074;");
