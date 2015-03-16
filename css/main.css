@@ -92,7 +92,7 @@ nav ul li a {
 .info-view {
   color: white;
   float: left;
-  width: 40%;
+  width: 400px;
 }
 .info-view img {
   width: 100%;
@@ -112,7 +112,7 @@ nav ul li a {
 .all-tracks,
 .favorite-tracks {
   float: left;
-  width: 60%;
+  width: calc(100% - 400px);
 }
 .track-list {
   background-color: #45ada8;
@@ -120,12 +120,14 @@ nav ul li a {
   font-size: 1.1rem;
   line-height: 1;
   padding: 1rem;
+  width: 100%;
 }
 .track-list .track-play {
   background-color: #e5fcc2;
   color: #547980;
   cursor: pointer;
   padding: .5rem;
+  width: 20px;
 }
 .track-list .track-star,
 .track-list .track-title {

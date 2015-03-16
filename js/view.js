@@ -332,7 +332,6 @@ var FavoritesView = Backbone.View.extend({
         var $trackStar = $(e.currentTarget);
 
         var id = $trackStar.prev().data("id");
-        console.log(id);
         $trackStar.empty().html("&#9734;");
         this.trigger("removeFromFavorites:track", id);
         

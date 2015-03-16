@@ -108,7 +108,7 @@ nav ul {
 .info-view {
     color: white;
     float: left;
-    width: 40%;
+    width: 400px;
     img {
         width: 100%;
         max-width: 400px;
@@ -128,7 +128,7 @@ nav ul {
 
 .all-tracks, .favorite-tracks {
     float: left;
-    width: 60%;
+    width: calc(~"100% - 400px");
 }
 
 .track-list {
@@ -137,11 +137,13 @@ nav ul {
     font-size: 1.1rem;
     line-height: 1;
     padding: 1rem;
+    width: 100%;
     .track-play {
         background-color: @lime;
         color: @dark-blue;
         cursor: pointer;
         padding: .5rem;
+        width: 20px;
     }
     .track-star, .track-title {
         padding: .5rem;
