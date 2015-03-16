@@ -41,6 +41,11 @@ var App = Backbone.Router.extend({
             this.removeFavorite(id);
         });
 
+        this.listenTo(this.favoritesView, 'removeFromFavorites:track', function(id) {
+            console.log(id);
+            this.removeFavorite(id);
+        });
+
         // play listeners
         this.listenTo(this.homeView, 'play:track', function(id) {
             this.playTrack(id);
@@ -98,14 +103,17 @@ var App = Backbone.Router.extend({
 
     loadFavorites: function() {
         this.homeView.$el.empty();
+
+        console.log(this.favoriteTracks);
         this.favoriteTracks.on('sync', function(collection) {
 
-            console.log('collection is loaded', collection);
-            $("body").append( this.favoritesView.render().el );
+            $("body").append( this.favoritesView.render() );
 
         }.bind(this));
+            $("body").append( this.favoritesView.render() );
 
-        this.favoriteTracks.fetch();
+
+
     },
 
     playTrack: function(id) {
@@ -124,13 +132,14 @@ var App = Backbone.Router.extend({
         this.favoriteTracks.get(id).pause();   
     },
 
-
     addFavorite: function(favoriteTrackID) {
         this.favoriteTracks.add(this.tracks.get(favoriteTrackID));
     },
 
     removeFavorite: function(favoriteTrackID) {
         this.favoriteTracks.remove(this.favoriteTracks.get(favoriteTrackID));
+            console.log("removed");
+        this.favoriteTracks.on("sync", this.loadFavorites());
     }
 
 

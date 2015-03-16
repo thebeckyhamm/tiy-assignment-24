@@ -263,7 +263,7 @@ var FavoritesView = Backbone.View.extend({
     },
 
     initialize: function() {
-        this.listenTo(this.collection, "reset", this.render);
+        this.listenTo(this.collection, "removeFromFavorites:track", this.render);
 
         this.on("play:track", function(id){
             if(this.firstModel !== this.collection.get(id)) {
@@ -300,6 +300,7 @@ var FavoritesView = Backbone.View.extend({
             collection: this.collection
         });
         this.$(".all-tracks").html( trackListView.render().el );
+        this.$(".track-star").empty().html("&#9733;");
 
         var currentTrackView = new CurrentTrackView({
             model: this.firstModel
@@ -331,6 +332,7 @@ var FavoritesView = Backbone.View.extend({
         var $trackStar = $(e.currentTarget);
 
         var id = $trackStar.prev().data("id");
+        console.log(id);
         $trackStar.empty().html("&#9734;");
         this.trigger("removeFromFavorites:track", id);
         
