@@ -11,6 +11,10 @@ this["JST"]["currentTrackView"] = Handlebars.template({"compiler":[6,">= 2.0.0-b
     + "</span>\n</div>";
 },"useData":true});
 this["JST"] = this["JST"] || {};
+this["JST"]["favoritesView"] = Handlebars.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
+    return "    <div class=\"track-search\">\n        <div class=\"current-track\"></div>\n    </div>\n    <div class=\"info-view\"></div>\n    <div class=\"all-tracks\"></div>    \n";
+},"useData":true});
+this["JST"] = this["JST"] || {};
 this["JST"]["homeView"] = Handlebars.template({"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
     return "    <div class=\"track-search\">\n        <div class=\"current-track\"></div>\n        <div class=\"search-box\"></div>\n    </div>\n    <div class=\"info-view\"></div>\n    <div class=\"all-tracks\"></div>    \n";
 },"useData":true});

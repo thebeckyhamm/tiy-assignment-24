@@ -8,36 +8,14 @@ var App = Backbone.Router.extend({
         this.tracks = new TrackCollection();
         this.favoriteTracks = new FavoriteTrackCollection();
 
-        // create search box view
-        // this.searchBoxView = new SearchBoxView({
-        //     el: ".search-box"
-        // });
-
-        // this.currentTrackView = new CurrentTrackView({
-        //     collection: this.tracks,
-        //     el: ".current-track"
-        // });
-
-        // this.infoView = new InfoView({
-        //     collection: this.tracks,
-        //     el: ".info-view"
-        // });
-
-        // create track list
-        // this.trackListView = new TrackListView({
-        //     collection: this.tracks,
-        //     el: ".all-tracks"
-        // });
-
-        // create favorite track list view
-        // this.favoriteTrackListView = new FavoriteTrackListView({
-        //     collection: this.favoriteTracks,
-        //     el: ".favorite-tracks"
-        // });
-
         this.homeView = new HomeView({
             collection: this.tracks,
             el: ".home"
+        });
+
+        this.favoritesView = new FavoritesView({
+            collection: this.favoriteTracks,
+            el: ".favorites"
         });
 
         // nav listener
@@ -68,8 +46,8 @@ var App = Backbone.Router.extend({
             this.playTrack(id);
         });
 
-        this.listenTo(this.homeView, 'play:currentTrack', function(id) {
-            this.playTrack(id);
+        this.listenTo(this.favoritesView, 'play:track', function(id) {
+            this.playFavoriteTrack(id);
         });
 
         // pause listener
@@ -77,11 +55,14 @@ var App = Backbone.Router.extend({
             this.pauseTrack(id);
         });
 
+        this.listenTo(this.favoritesView, 'pause:track', function(id) {
+            this.pauseFavoriteTrack(id);
+        });
+
         // search box listener
         this.listenTo(this.homeView, "search:submitted", function(keyword, id) {
 
             this.loadHome(keyword, id);
-
             this.navigate("search/" + keyword);
         });
 
@@ -104,22 +85,27 @@ var App = Backbone.Router.extend({
         if(id) {
             this.tracks.get(id).pause();
         }
+
+        this.favoritesView.$el.empty();
+
         this.tracks.loadTracks(query);
 
         this.listenTo(this.tracks, "reset", function() {
-            $("body").append( this.homeView.render() );
+            $("body").append( this.homeView.render().el );
         });
 
     },
 
     loadFavorites: function() {
-        this.favoriteTracks.fetch();
+        this.homeView.$el.empty();
         this.favoriteTracks.on('sync', function(collection) {
 
             console.log('collection is loaded', collection);
-            $("body").append( this.favoriteTrackListView.render().el );
-        
+            $("body").append( this.favoritesView.render().el );
+
         }.bind(this));
+
+        this.favoriteTracks.fetch();
     },
 
     playTrack: function(id) {
@@ -129,6 +115,15 @@ var App = Backbone.Router.extend({
     pauseTrack: function(id) {
         this.tracks.get(id).pause();   
     },
+
+    playFavoriteTrack: function(id) {
+        this.favoriteTracks.get(id).play();
+    },
+
+    pauseFavoriteTrack: function(id) {
+        this.favoriteTracks.get(id).pause();   
+    },
+
 
     addFavorite: function(favoriteTrackID) {
         this.favoriteTracks.add(this.tracks.get(favoriteTrackID));
@@ -140,4 +135,4 @@ var App = Backbone.Router.extend({
 
 
 
-})
+});

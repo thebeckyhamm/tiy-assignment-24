@@ -33,7 +33,7 @@ nav ul li a {
 .track-search {
   position: relative;
 }
-.current-track {
+.home .current-track {
   margin-left: 50px;
 }
 .search-box {

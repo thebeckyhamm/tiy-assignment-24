@@ -28,13 +28,10 @@ var SearchBoxView = Backbone.View.extend({
 
     template: JST["searchBoxView"],
 
-
     render: function() {
         this.$el.html( this.template());
         return this;
     }
-
-
 
 });
 
@@ -129,6 +126,8 @@ var TrackListView = Backbone.View.extend({
     }
 
 });
+
+
 
 var HomeView = Backbone.View.extend({
 
@@ -248,37 +247,69 @@ var HomeView = Backbone.View.extend({
         }
         
     }
-
-
-
 });
 
 
-var FavoriteTrackListView = Backbone.View.extend({
 
-    template: JST["listView"],
+var FavoritesView = Backbone.View.extend({
 
-    tagName: "table",
+    template: JST["favoritesView"],
 
     events: {
 
         "click .track-play" : "onPlayPause",
-        "click .track-star" : "removeFavorite"
+        "click .track-item .track-star" : "removeFavorites"
+
+    },
+
+    initialize: function() {
+        this.listenTo(this.collection, "reset", this.render);
+
+        this.on("play:track", function(id){
+            if(this.firstModel !== this.collection.get(id)) {
+                var currentTrackView = new CurrentTrackView({
+                    model: this.collection.get(id)
+                });
+                this.$(".current-track").html( currentTrackView.render().el ); 
+
+                var infoView = new InfoView({
+                    model: this.collection.get(id)
+                });
+                this.$(".info-view").html( infoView.render().el );    
+            } 
+
+            this.$("[data-id='" + id +"']" ).data("state", "pause");
+            this.$("[data-id='" + id +"']" ).html("&#10074;&#10074;");
+
+        });
+
+        this.on("pause:track", function(id){
+            this.$("[data-id='" + id +"']" ).data("state", "play");
+            this.$("[data-id='" + id +"']" ).html("&#9658;");
+
+        });
     },
 
 
     render: function() {
         this.$el.html( this.template() );
 
-        var $list = this.$(".track-list");
+        this.firstModel = this.collection.first();
 
-        this.collection.each(function(track) {
-            var trackView = new TrackView({model: track});
-            $list.append( trackView.render().el );
-            this.$(".track-star").empty().html("&#9733;");
-        }, this);
+        var trackListView = new TrackListView({
+            collection: this.collection
+        });
+        this.$(".all-tracks").html( trackListView.render().el );
 
-        return this;
+        var currentTrackView = new CurrentTrackView({
+            model: this.firstModel
+        });
+        this.$(".current-track").html( currentTrackView.render().el );
+
+        var infoView = new InfoView({
+            model: this.firstModel
+        });
+        this.$(".info-view").html( infoView.render().el );
 
     },
 
@@ -286,25 +317,28 @@ var FavoriteTrackListView = Backbone.View.extend({
         var $trackButton = $(e.currentTarget);
 
         if ($trackButton.data("state") === "play") {
-            $trackButton.data("state", "pause");
-            $trackButton.html("&#10074;&#10074;");
             var id = $(e.currentTarget).data("id");
             this.trigger("play:track", id);   
         }
         else {
-            $trackButton.data("state", "play");
-            $trackButton.html("&#9658;");
             var id = $(e.currentTarget).data("id");
             this.trigger("pause:track", id);   
         }
     },
 
-    removeFavorite: function(e) {
+
+    removeFavorites: function(e) {
         var $trackStar = $(e.currentTarget);
-        var id = $trackStar.parent().data("id");
+
+        var id = $trackStar.prev().data("id");
         $trackStar.empty().html("&#9734;");
         this.trigger("removeFromFavorites:track", id);
         
     }
 
+
+
 });
+
+
+
