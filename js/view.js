@@ -126,22 +126,6 @@ var TrackListView = Backbone.View.extend({
 
         return this;
 
-    },
-
-    addRemoveFavorites: function(e) {
-        var $trackStar = $(e.currentTarget);
-
-        if ($trackStar.html() === "★") {
-            var id = $trackStar.parent().data("id");
-            $trackStar.empty().html("&#9734;");
-            this.trigger("removeFromFavorites:track", id);
-        } 
-        else {
-            var id = $trackStar.parent().data("id");
-            $trackStar.empty().html("&#9733;");
-            this.trigger("addToFavorites:track", id);
-        }
-        
     }
 
 });
@@ -246,6 +230,23 @@ var HomeView = Backbone.View.extend({
 
         this.$("form").css("display", "inline-block");
         this.$(".current-track div").removeClass("z-up");
+    },
+
+    addRemoveFavorites: function(e) {
+        var $trackStar = $(e.currentTarget);
+
+        if ($trackStar.html() === "★") {
+            var id = $trackStar.prev().data("id");
+            $trackStar.empty().html("&#9734;");
+            this.trigger("removeFromFavorites:track", id);
+        } 
+        else {
+            var id = $trackStar.prev().data("id");
+            console.log(id);
+            $trackStar.empty().html("&#9733;");
+            this.trigger("addToFavorites:track", id);
+        }
+        
     }
 
 

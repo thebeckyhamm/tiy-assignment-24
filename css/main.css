@@ -81,19 +81,33 @@ nav ul li a {
   background-color: #5e888f;
 }
 .current-track div span:nth-child(2) {
+  line-height: 1;
   padding: 1rem;
 }
 .current-track div span:last-child {
   float: right;
+  line-height: 1;
   padding: 1rem;
 }
 .info-view {
+  color: white;
   float: left;
   width: 40%;
 }
 .info-view img {
   width: 100%;
   max-width: 400px;
+}
+.info-view ul {
+  margin: 0;
+  padding: 1rem;
+}
+.info-view li {
+  list-style-type: none;
+}
+.info-view span,
+.info-view a {
+  color: #e5fcc2;
 }
 .all-tracks,
 .favorite-tracks {

@@ -54,19 +54,14 @@ var App = Backbone.Router.extend({
         });
 
         // add to favorites listener
-        // this.listenTo(this.trackListView, 'addToFavorites:track', function(id) {
-        //     this.addFavorite(id);
-        // });
+        this.listenTo(this.homeView, 'addToFavorites:track', function(id) {
+            this.addFavorite(id);
+        });
 
-        // // remove from favorites listener for regular track list
-        // this.listenTo(this.trackListView, 'removeFromFavorites:track', function(id) {
-        //     this.removeFavorite(id);
-        // });
-
-        // // remove from favorites listener for favorite track list
-        // this.listenTo(this.favoriteTrackListView, 'removeFromFavorites:track', function(id) {
-        //     this.removeFavorite(id);
-        // });
+        // remove from favorites listener for regular track list
+        this.listenTo(this.homeView, 'removeFromFavorites:track', function(id) {
+            this.removeFavorite(id);
+        });
 
         // play listeners
         this.listenTo(this.homeView, 'play:track', function(id) {
@@ -82,25 +77,7 @@ var App = Backbone.Router.extend({
             this.pauseTrack(id);
         });
 
-        // this.listenTo(this.favoriteTrackListView, 'play:track', function(id) {
-        //     this.playFavoriteTrack(id);
-        // });
-
-        // this.listenTo(this.currentTrackView, 'play:track', function(id) {
-        //     this.playTrack(id);
-        // });
-
-
-        // this.listenTo(this.favoriteTrackListView, 'pause:track', function(id) {
-        //     this.pauseTrack(id);
-        // });
-
-        // this.listenTo(this.currentTrackView, 'pause:track', function(id) {
-        //     this.pauseTrack(id);
-        // });
-
-
-        // // search box listener
+        // search box listener
         this.listenTo(this.homeView, "search:submitted", function(keyword, id) {
 
             this.loadHome(keyword, id);
@@ -136,13 +113,12 @@ var App = Backbone.Router.extend({
     },
 
     loadFavorites: function() {
-        this.trackListView.$el.detach();
         this.favoriteTracks.fetch();
         this.favoriteTracks.on('sync', function(collection) {
 
             console.log('collection is loaded', collection);
             $("body").append( this.favoriteTrackListView.render().el );
-            //$("body").prepend( this.currentTrackView.render().el );
+        
         }.bind(this));
     },
 
@@ -153,9 +129,6 @@ var App = Backbone.Router.extend({
     pauseTrack: function(id) {
         this.tracks.get(id).pause();   
     },
-
-
-
 
     addFavorite: function(favoriteTrackID) {
         this.favoriteTracks.add(this.tracks.get(favoriteTrackID));

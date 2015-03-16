@@ -3,22 +3,22 @@
     </div>
     <ul>
         {{#if release_year}}
-            <li>Released: {{release_year}}</li>
+            <li>Released: <span>{{release_year}}</span></li>
         {{/if}}
         {{#if genre}} 
-            <li>Genre: {{genre}}</li>
+            <li>Genre: <span>{{genre}}</span></li>
         {{/if}}
         {{#if label_name}} 
-            <li>Label: {{label_name}}</li>
+            <li>Label: <span>{{label_name}}</span></li>
         {{/if}}  
         {{#if tag_list}} 
-            <li>Tags: {{tag_list}}</li>
+            <li>Tags: <span>{{tag_list}}</span></li>
         {{/if}}  
         {{#if downloadable}} 
             <li><a href="{{download_url}}">Download</a></li>
         {{/if}}  
         {{#if favoritings_count}} 
-            <li>Favorites: {{favoritings_count}}</li>
+            <li>Favorites: <span>{{favoritings_count}}</span></li>
         {{/if}} 
 
     </ul>

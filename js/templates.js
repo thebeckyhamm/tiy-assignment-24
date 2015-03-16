@@ -18,27 +18,27 @@ this["JST"] = this["JST"] || {};
 this["JST"]["infoView"] = Handlebars.template({"1":function(depth0,helpers,partials,data) {
     var helper;
 
-  return "            <li>Released: "
+  return "            <li>Released: <span>"
     + this.escapeExpression(((helper = (helper = helpers.release_year || (depth0 != null ? depth0.release_year : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0,{"name":"release_year","hash":{},"data":data}) : helper)))
-    + "</li>\n";
+    + "</span></li>\n";
 },"3":function(depth0,helpers,partials,data) {
     var helper;
 
-  return "            <li>Genre: "
+  return "            <li>Genre: <span>"
     + this.escapeExpression(((helper = (helper = helpers.genre || (depth0 != null ? depth0.genre : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0,{"name":"genre","hash":{},"data":data}) : helper)))
-    + "</li>\n";
+    + "</span></li>\n";
 },"5":function(depth0,helpers,partials,data) {
     var helper;
 
-  return "            <li>Label: "
+  return "            <li>Label: <span>"
     + this.escapeExpression(((helper = (helper = helpers.label_name || (depth0 != null ? depth0.label_name : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0,{"name":"label_name","hash":{},"data":data}) : helper)))
-    + "</li>\n";
+    + "</span></li>\n";
 },"7":function(depth0,helpers,partials,data) {
     var helper;
 
-  return "            <li>Tags: "
+  return "            <li>Tags: <span>"
     + this.escapeExpression(((helper = (helper = helpers.tag_list || (depth0 != null ? depth0.tag_list : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0,{"name":"tag_list","hash":{},"data":data}) : helper)))
-    + "</li>\n";
+    + "</span></li>\n";
 },"9":function(depth0,helpers,partials,data) {
     var helper;
 
@@ -48,9 +48,9 @@ this["JST"]["infoView"] = Handlebars.template({"1":function(depth0,helpers,parti
 },"11":function(depth0,helpers,partials,data) {
     var helper;
 
-  return "            <li>Favorites: "
+  return "            <li>Favorites: <span>"
     + this.escapeExpression(((helper = (helper = helpers.favoritings_count || (depth0 != null ? depth0.favoritings_count : depth0)) != null ? helper : helpers.helperMissing),(typeof helper === "function" ? helper.call(depth0,{"name":"favoritings_count","hash":{},"data":data}) : helper)))
-    + "</li>\n";
+    + "</span></li>\n";
 },"compiler":[6,">= 2.0.0-beta.1"],"main":function(depth0,helpers,partials,data) {
     var stack1, helper, alias1=helpers.helperMissing, alias2="function", alias3=this.escapeExpression;
 

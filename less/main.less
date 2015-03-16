@@ -95,21 +95,34 @@ nav ul {
         }
     }
     span:nth-child(2) {
+        line-height: 1;
         padding: 1rem;
     }
     span:last-child {
         float: right;
+        line-height: 1;
         padding: 1rem;
     }
 }
 
 .info-view {
+    color: white;
     float: left;
     width: 40%;
     img {
         width: 100%;
         max-width: 400px;
 
+    }
+    ul {
+        margin: 0;
+        padding: 1rem;
+    }
+    li {
+        list-style-type: none;
+    }
+    span, a {
+        color: @lime;
     }
 }
 
@@ -142,3 +155,4 @@ nav ul {
     }
 
 }
+
